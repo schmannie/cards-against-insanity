@@ -1,0 +1,12 @@
+{
+  "name": "cai-server",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

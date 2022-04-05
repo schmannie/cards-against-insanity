@@ -1,0 +1,11 @@
+{
+  "name": "cards-against-insanity",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Manpreet \"Mannie\" Singh",
+  "license": "MIT",
+  "workspaces": [
+    "packages/client",
+    "packages/server"
+  ]
+}
