@@ -1,10 +1,10 @@
 import './utils/initEnv';
 import log from './utils/logging';
+import reportWebVitals from './utils/reportWebVitals';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import raw from 'raw.macro';
-import reportWebVitals from './reportWebVitals';
 
 import './index.css';
 import App from './components/App';
