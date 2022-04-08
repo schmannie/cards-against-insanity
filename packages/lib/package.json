@@ -1,0 +1,22 @@
+{
+  "name": "cai-lib",
+  "version": "0.1.3",
+  "description": "",
+  "author": "Manpreet \"Mannie\" Singh",
+  "license": "MIT",
+  "main": "dist/cards-against-insanity.js",
+  "browser": "dist/cards-against-insanity.js",
+  "types": "dist/cards-against-insanity.d.ts",
+  "scripts": {
+    "clean": "npx rimraf ./dist",
+    "build": "npm run clean && npx tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}

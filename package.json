@@ -1,24 +1,12 @@
 {
-    "name": "cards-against-insanity",
-    "version": "0.1.1",
-    "description": "",
-    "author": "Manpreet \"Mannie\" Singh",
-    "license": "MIT",
-    "main": "./lib/cards-against-insanity.js",
-    "scripts": {
-        "clean": "npx rimraf ./dist",
-        "build": "npm run clean && npx tsc",
-        "postinstall": "npm run build"
-    },
-    "dependencies": {
-        "rimraf": "^3.0.2",
-        "typescript": "^4.6.3"
-    },
-    "devDependencies": {
-        "jest": "^27.5.1"
-    },
-    "workspaces": [
-        "packages/server",
-        "packages/client"
-    ]
+  "name": "cards-against-insanity",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Manpreet \"Mannie\" Singh",
+  "license": "MIT",
+  "workspaces": [
+    "packages/lib",
+    "packages/server",
+    "packages/client"
+  ]
 }
