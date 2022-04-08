@@ -8,17 +8,19 @@ import raw from 'raw.macro';
 
 import './index.css';
 import App from './components/App';
+import { SocketContext, socket } from './components/contexts/SocketContext';
 
 log.info(raw('./note.txt'));
 
 const root = createRoot(document.getElementById('root'))
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <SocketContext.Provider value={socket}>
+            <App />
+        </SocketContext.Provider>
+    </React.StrictMode>
 );
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
