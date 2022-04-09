@@ -1,70 +1,89 @@
 const log = require('./utils/logging');
 
+const SHA256 = require('crypto-js/sha256');
 const HTTP = require('http');
 const { Server } = require('socket.io');
+
+const { AuthMessageType } = require('cai-lib');
+
+const players = {};
 
 log.debug("Intializing HTTP + WS server...");
 const server_start_time = Date.now();
 
-const http_port = process.env.NODE_ENV === 'development' ? 8080 : 80;
-// TODO: add production client origin
-const accepted_origin = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000' : null;
+const httpServer = HTTP.createServer(handleHTTPRequest); // TODO: enable HTTPS
 
-// TODO: enable HTTPS
-const httpServer = HTTP.createServer(handleHTTPRequest);
-
+const accepted_origin = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000' : ''; // TODO: add production client origin
 const io = new Server(httpServer, {
-    cors: {
-        origin: accepted_origin
-    },
+  cors: {
+    origin: accepted_origin,
+  },
 });
 
-// wsRouter.mount('*', 'auth', req => {
+io.of('/auth').on('connection', handleAuthConnection);
 
-//     let auth_log = log.child({ channel: 'auth' });
+const http_port = process.env.NODE_ENV === 'development' ? 8080 : 80;
+httpServer.listen(http_port, handleListening);
 
-//     const remoteAddress = req.remoteAddress;
+/**
+ * Handle a new connection to the auth namespace.
+ */
+function handleAuthConnection(socket) {
+  this.log = log.child({ namespace: 'ws/auth' });
+  this.log.debug(`Connection from SID:${socket.id} (${socket.conn.remoteAddress})`);
 
-//     // TODO: check req.origin
+  /**
+   * Handle a login request from the client.
+   */
+  socket.on(AuthMessageType.LOGIN_REQUEST, (message) => {
+    this.log.debug(`Received login request from SID:${socket.id} (${socket.conn.remoteAddress})`);
 
-//     const connection = req.accept();
+    try {
+      message = JSON.parse(message);
+    } catch (e) {
+      const reason = 'Failed to parse login request (invalid JSON)';
 
-//     auth_log.info(`Accepted auth connection from ${remoteAddress}`);
-//     auth_log = auth_log.child({ remote_address: remoteAddress });
+      this.log.error(reason, e.message);
+      socket.emit(AuthMessageType.LOGIN_FAILURE, JSON.stringify({ reason }));
 
-//     connection.on('close', () => {
+      return;
+    }
 
-//         const code = connection.closeReasonCode;
-//         const reason = connection.closeDescription;
+    const login_time = Date.now();
+    const uuid = SHA256(`${message.name}${login_time}`).toString();
 
-//         auth_log = auth_log.child({ close_code: code });
+    players[uuid] = {
+      name: message.name,
+      login_time,
+    };
 
-//         switch (code) {
-//             case WSConnection.CLOSE_REASON_NORMAL:
-//             case WSConnection.CLOSE_REASON_GOING_AWAY:
-//                 auth_log.info(`Closed auth connection: ${code} ${reason}`);
-//                 break;
-//             default:
-//                 auth_log.error(`Closed auth connection: ${code} ${reason}`);
-//         }
-//     });
-// });
+    socket.data.login_id = uuid;
+    socket.emit(AuthMessageType.LOGIN_SUCCESS, JSON.stringify({ uuid, name: message.name, login_time }));
 
-io.on('connection', socket => {
+    this.log.info(`Successfully logged in player '${players[uuid].name}'`);
+  });
 
-    log.info(`WS connection from ${socket.id}`);
+  socket.on('disconnect', () => {
+    this.log.debug(`Disconnection from 'SID:${socket.id}' (${socket.conn.remoteAddress})`);
 
-    socket.on('disconnect', () => {
-        log.info(`WS disconnection from ${socket.id}`);
-    });
-});
-
-function handleHTTPRequest(req, res) {
-
-    log.info(`HTTP request: ${req.method} ${req.url} from ${req.socket.remoteAddress}`);
-    res.end("Hello, world!");
+    if (socket.data.login_id) {
+      delete players[socket.data.login_id];
+      this.log.info(`Deleted player '${players[socket.data.login_id].name}'`);
+    }
+  });
 }
 
-httpServer.listen(http_port, () => {
-    log.info(`HTTP server listening on port '${http_port}' (took ${Date.now() - server_start_time}ms)`);
-});
+/**
+ * Handle an incoming HTTP request.
+ */
+function handleHTTPRequest(req, res) {
+  this.log = log.child({ namespace: 'http' });
+  this.log.info(`HTTP request: ${req.method} ${req.url} from ${req.socket.remoteAddress}`);
+
+  res.end("Hello, world!");
+}
+
+function handleListening() {
+  this.log = log.child({ namespace: 'httpServer' });
+  log.info(`HTTP server listening on port '${http_port}' (took ${Date.now() - server_start_time}ms)`);
+}
