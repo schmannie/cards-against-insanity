@@ -4,7 +4,11 @@ import {
   useEffect,
   useCallback,
 } from 'react';
-import { AuthMessageType } from 'cai-lib';
+import {
+  AuthMessageType,
+  LoginSuccessMessage,
+  LoginFailureMessage,
+} from 'cai-lib';
 
 import './App.css';
 import Auth from '../Auth';
@@ -13,7 +17,7 @@ import Sidebar from '../Sidebar';
 import { SocketsContext } from 'contexts/SocketsContext';
 
 import globalLog from 'utils/logging';
-const log = globalLog.child({ namespace: 'AuthComponent' });
+const log = globalLog.child({ namespace: 'App' });
 
 function App() {
 
@@ -24,17 +28,44 @@ function App() {
     log.debug('Successfully connected to auth socket');
   }, []);
 
+  const handleLoginSuccess = useCallback((message: string) => {
+    try {
+      const payload: LoginSuccessMessage = JSON.parse(message);
+      log.debug(`Successfully logged in as: '${payload.name}'`);
+    } catch (e) {
+      log.error(`Login request failed: ${(e as Error).message}`);
+    }
+  }, []);
+
+  const handleLoginFailure = useCallback((message: string) => {
+    try {
+      const payload: LoginFailureMessage = JSON.parse(message);
+      log.error(`Login request failed: ${payload.reason}`);
+    } catch (e) {
+      log.error(`Failed to parse failing login response: ${(e as Error).message}`);
+    }
+  }, []);
+
   useEffect(() => {
 
     sockets.auth.on('connect', handleAuthConnection);
+    sockets.auth.on(AuthMessageType.LOGIN_SUCCESS, handleLoginSuccess);
+    sockets.auth.on(AuthMessageType.LOGIN_FAILURE, handleLoginFailure);
 
-    sockets.auth.connect();
+    if (!sockets.auth.connected) {
+
+      log.debug('Connecting to auth socket');
+      sockets.auth.connect(); // TODO: send auth payload if present
+    }
 
     return () => {
 
       sockets.auth.off('connect', handleAuthConnection);
+      sockets.auth.off(AuthMessageType.LOGIN_SUCCESS, handleLoginSuccess);
+      sockets.auth.off(AuthMessageType.LOGIN_FAILURE, handleLoginFailure);
 
       if (sockets.auth.connected) {
+
         sockets.auth.disconnect();
         log.debug('Gracefully disconnected from auth socket on \'App\' unmount');
       }
@@ -53,11 +84,7 @@ function App() {
           {/* FriendsList */}
         </Sidebar>
       ) : (
-        <Auth>
-          <code>
-            {JSON.stringify(Object.keys(AuthMessageType))}
-          </code>
-        </Auth>
+        <Auth />
       )}
 
     </section>
