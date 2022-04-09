@@ -4,6 +4,9 @@ import {
   io
 } from 'socket.io-client';
 
+// import globalLog from 'utils/logging';
+// const log = globalLog.child({ namespace: 'SocketsContext' });
+
 // TODO: setup WSS
 class SocketManager {
 
@@ -23,11 +26,11 @@ class SocketManager {
   _buildWS_url(namespace: string): string {
     return (
       'ws://' +
-        (process.env.NODE_ENV === 'development') ? (
+      ((process.env.NODE_ENV === 'development') ? (
         '127.0.0.1:8080'
       ) : (
         ''
-      ) +
+      )) +
       '/' + namespace
     );
   }
