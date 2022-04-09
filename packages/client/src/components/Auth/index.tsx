@@ -15,6 +15,12 @@ import { SocketsContext } from 'contexts/SocketsContext';
 import globalLog from 'utils/logging';
 const log = globalLog.child({ namespace: 'Auth' });
 
+/**
+ * Auth component
+ * 
+ * - shows UI for logging in
+ * - sends websocket messages to auth server
+ */
 const Auth = () => {
 
   const sockets = useContext(SocketsContext);
@@ -29,10 +35,8 @@ const Auth = () => {
 
     if (name.length < 3) return; // TODO: perform validation and show error
 
-    const message: LoginRequestMessage = { name };
-
-    log.debug(`Sending login request with name: '${message.name}'...`);
-    sockets.auth.emit(AuthMessageType.LOGIN_REQUEST, JSON.stringify(message));
+    log.debug(`Sending login request with name: '${name}'`);
+    sockets.auth.emit(AuthMessageType.LOGIN_REQUEST, JSON.stringify(new LoginRequestMessage(name)));
   };
 
   return (

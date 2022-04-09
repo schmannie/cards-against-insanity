@@ -4,7 +4,11 @@ const SHA256 = require('crypto-js/sha256');
 const HTTP = require('http');
 const { Server } = require('socket.io');
 
-const { AuthMessageType } = require('cai-lib');
+const {
+  AuthMessageType,
+  LoginSuccessMessage,
+  LoginFailureMessage,
+} = require('cai-lib');
 
 const players = {};
 
@@ -44,7 +48,7 @@ function handleAuthConnection(socket) {
       const reason = 'Failed to parse login request (invalid JSON)';
 
       this.log.error(reason, e.message);
-      socket.emit(AuthMessageType.LOGIN_FAILURE, JSON.stringify({ reason }));
+      socket.emit(AuthMessageType.LOGIN_FAILURE, JSON.stringify(new LoginFailureMessage(reason)));
 
       return;
     }
@@ -58,7 +62,7 @@ function handleAuthConnection(socket) {
     };
 
     socket.data.login_id = uuid;
-    socket.emit(AuthMessageType.LOGIN_SUCCESS, JSON.stringify({ uuid, name: message.name, login_time }));
+    socket.emit(AuthMessageType.LOGIN_SUCCESS, JSON.stringify(new LoginSuccessMessage(uuid, message.name, login_time)));
 
     this.log.info(`Successfully logged in player '${players[uuid].name}'`);
   });

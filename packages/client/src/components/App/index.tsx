@@ -30,7 +30,7 @@ function App() {
 
   const handleLoginSuccess = useCallback((message: string) => {
     try {
-      const payload: LoginSuccessMessage = JSON.parse(message);
+      const payload = JSON.parse(message) as LoginSuccessMessage;
       log.debug(`Successfully logged in as: '${payload.name}'`);
     } catch (e) {
       log.error(`Login request failed: ${(e as Error).message}`);
@@ -39,7 +39,7 @@ function App() {
 
   const handleLoginFailure = useCallback((message: string) => {
     try {
-      const payload: LoginFailureMessage = JSON.parse(message);
+      const payload = JSON.parse(message) as LoginFailureMessage;
       log.error(`Login request failed: ${payload.reason}`);
     } catch (e) {
       log.error(`Failed to parse failing login response: ${(e as Error).message}`);
