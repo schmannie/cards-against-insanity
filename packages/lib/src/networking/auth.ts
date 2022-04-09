@@ -19,11 +19,11 @@ class LoginRequestMessage {
 
 class LoginSuccessMessage {
 
-  id: number;
+  id: string;
   name: string;
   login_time: number;
 
-  constructor(id: number, name: string, login_time: number) {
+  constructor(id: string, name: string, login_time: number) {
     this.id = id;
     this.name = name;
     this.login_time = login_time;
