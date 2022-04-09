@@ -1,42 +1,48 @@
 enum AuthMessageType {
-    // CREATE_USER: 'auth_create_user',
-    // CREATE_USER_SUCCESS: 'auth_create_user_success',
-    // CREATE_USER_FAILURE: 'auth_create_user_failure',
+  // CREATE_USER: 'auth_create_user',
+  // CREATE_USER_SUCCESS: 'auth_create_user_success',
+  // CREATE_USER_FAILURE: 'auth_create_user_failure',
 
-    LOGIN_REQUEST = 'auth_request_login',
-    LOGIN_SUCCESS = 'auth_login_success',
-    LOGIN_FAILURE = 'auth_login_failure',
+  LOGIN_REQUEST = 'auth_request_login',
+  LOGIN_SUCCESS = 'auth_login_success',
+  LOGIN_FAILURE = 'auth_login_failure',
 };
 
-interface IAuthMessage {
-    type: AuthMessageType;
-};
+class LoginRequestMessage {
 
-interface AuthMessageLoginRequest extends IAuthMessage {
-    type: AuthMessageType.LOGIN_REQUEST,
-    body: {
-        username: string,
-    },
-};
+  name: string;
 
-interface AuthMessageLoginResponseSuccess extends IAuthMessage {
-    type: AuthMessageType.LOGIN_SUCCESS,
-    body: {
-        username: string,
-        login_time: number,
-    },
-};
+  constructor(name: string) {
+    this.name = name;
+  }
+}
 
-interface AuthMesssageLoginResponseFailure extends IAuthMessage {
-    type: AuthMessageType.LOGIN_FAILURE,
-    body: {
-        reason: string,
-    },
-};
+class LoginSuccessMessage {
+
+  id: number;
+  name: string;
+  login_time: number;
+
+  constructor(id: number, name: string, login_time: number) {
+    this.id = id;
+    this.name = name;
+    this.login_time = login_time;
+  }
+}
+
+class LoginFailureMessage {
+
+  reason: string;
+
+  constructor(reason: string) {
+    this.reason = reason;
+  }
+}
 
 export {
-    AuthMessageType,
-    AuthMessageLoginRequest,
-    AuthMessageLoginResponseSuccess,
-    AuthMesssageLoginResponseFailure,
+  AuthMessageType,
+
+  LoginRequestMessage,
+  LoginSuccessMessage,
+  LoginFailureMessage,
 };

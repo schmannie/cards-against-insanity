@@ -1,13 +1,15 @@
 import {
   AuthMessageType,
-  AuthMessageLoginRequest,
-  AuthMessageLoginResponseSuccess,
-  AuthMesssageLoginResponseFailure,
+
+  LoginRequestMessage,
+  LoginSuccessMessage,
+  LoginFailureMessage,
 } from './networking/auth';
 
 export {
   AuthMessageType,
-  AuthMessageLoginRequest,
-  AuthMessageLoginResponseSuccess,
-  AuthMesssageLoginResponseFailure,
+
+  LoginRequestMessage,
+  LoginSuccessMessage,
+  LoginFailureMessage,
 };
