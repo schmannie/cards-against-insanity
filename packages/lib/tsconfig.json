@@ -1,17 +1,10 @@
 {
+  "extends": "@tsconfig/node17/tsconfig.json",
   "compilerOptions": {
-    "strict": true,
-    "target": "es6",
-    "declaration": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "baseUrl": "./src"
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist-*"
   ]
 }
