@@ -11,13 +11,12 @@ import {
   LoginFailureMessage,
 } from 'cai-lib';
 
+import { SocketsContext } from 'src/contexts/SocketsContext';
+import Auth from 'src/components/Auth';
+import Sidebar from 'src/components/Sidebar';
 import './App.css';
-import Auth from '../Auth';
-import Sidebar from '../Sidebar';
 
-import { SocketsContext } from 'contexts/SocketsContext';
-
-import globalLog from 'utils/logging';
+import globalLog from 'src/utils/logging';
 const log = globalLog.child({ namespace: 'App' });
 
 function App() {

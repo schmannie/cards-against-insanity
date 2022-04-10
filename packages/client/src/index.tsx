@@ -1,14 +1,14 @@
-import 'utils/initEnv';
-import log from 'utils/logging';
-import reportWebVitals from 'utils/reportWebVitals';
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import raw from 'raw.macro';
 
-import './index.css';
-import App from 'components/App';
-import { SocketsContext, sockets } from 'contexts/SocketsContext';
+import reportWebVitals from 'src/utils/reportWebVitals';
+import { SocketsContext, sockets } from 'src/contexts/SocketsContext';
+import App from 'src/components/App';
+import '/index.css';
+
+import 'src/utils/initEnv';
+import log from 'src/utils/logging';
 
 log.info(raw('./note.txt'));
 

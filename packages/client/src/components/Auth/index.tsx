@@ -9,11 +9,10 @@ import {
   LoginRequestMessage,
 } from 'cai-lib';
 
+import { SocketsContext } from 'src/contexts/SocketsContext';
 import './Auth.css';
 
-import { SocketsContext } from 'contexts/SocketsContext';
-
-import globalLog from 'utils/logging';
+import globalLog from 'src/utils/logging';
 const log = globalLog.child({ namespace: 'Auth' });
 
 /**
