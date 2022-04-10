@@ -4,10 +4,14 @@ import { SHA256 } from 'crypto-js';
 import HTTP from 'http';
 import * as s_io from 'socket.io';
 
-import * as cards_again_insanity from 'cai-lib';
+import {
+  AuthMessageType,
+  LoginRequestMessage,
+  LoginSuccessMessage,
+  LoginFailureMessage
+} from 'cai-lib';
 
 import {
-  IPlayer,
   Players,
 } from 'models';
 
@@ -27,11 +31,11 @@ function handleAuthConnection(socket: s_io.Socket) {
   /**
    * Handle a login request from the client.
    */
-  socket.on(cards_again_insanity.AuthMessageType.LOGIN_REQUEST, (message: string) => {
+  socket.on(AuthMessageType.LOGIN_REQUEST, (message: string) => {
     ctxLog.debug(`Received login request from SID:${socket.id} (${socket.conn.remoteAddress})`);
 
     try {
-      const payload = JSON.parse(message) as cards_again_insanity.LoginRequestMessage;
+      const payload = JSON.parse(message) as LoginRequestMessage;
       const login_time = Date.now();
       const uuid = SHA256(`${payload.name}${login_time}`).toString();
 
@@ -41,14 +45,14 @@ function handleAuthConnection(socket: s_io.Socket) {
       };
 
       socket.data.login_id = uuid;
-      socket.emit(cards_again_insanity.AuthMessageType.LOGIN_SUCCESS, JSON.stringify({ id: uuid, name: payload.name, login_time } as cards_again_insanity.LoginSuccessMessage));
+      socket.emit(AuthMessageType.LOGIN_SUCCESS, JSON.stringify({ id: uuid, name: payload.name, login_time } as LoginSuccessMessage));
 
       ctxLog.info(`Successfully logged in player '${players[uuid].name}'`);
     } catch (e) {
       const reason = 'Failed to parse login request (invalid JSON)';
 
       ctxLog.error(reason, (e as Error).message);
-      socket.emit(cards_again_insanity.AuthMessageType.LOGIN_FAILURE, JSON.stringify({ reason } as cards_again_insanity.LoginFailureMessage));
+      socket.emit(AuthMessageType.LOGIN_FAILURE, JSON.stringify({ reason } as LoginFailureMessage));
 
       return;
     }
