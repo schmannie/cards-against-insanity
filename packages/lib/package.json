@@ -1,6 +1,7 @@
 {
   "name": "cai-lib",
-  "version": "0.1.15",
+  "version": "0.1.16",
+  "private": true,
   "description": "",
   "author": "Manpreet \"Mannie\" Singh",
   "license": "MIT",
@@ -12,16 +13,14 @@
     "build::esm": "npx tsc --module es6 --outDir ./dist-esm",
     "build::cjs": "npx tsc --module commonjs --outDir ./dist-cjs",
     "build::types": "npx tsc --declaration --emitDeclarationOnly --outDir ./dist-types",
-    "build::all": "npm run build::esm && npm run build::cjs && npm run build::types",
+    "build::all": "npm run clean && npm run build::esm && npm run build::cjs && npm run build::types",
     "build": "npm run build::all",
     "prepare": "npm run build"
   },
-  "dependencies": {
+  "devDependencies": {
     "@tsconfig/node17": "^1.0.0",
+    "jest": "^27.5.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.3"
-  },
-  "devDependencies": {
-    "jest": "^27.5.1"
   }
 }

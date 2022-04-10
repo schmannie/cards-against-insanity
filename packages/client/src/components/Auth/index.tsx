@@ -3,6 +3,7 @@ import {
   useContext,
   ChangeEventHandler,
 } from 'react';
+
 import {
   AuthMessageType,
   LoginRequestMessage,
@@ -36,7 +37,7 @@ const Auth = () => {
     if (name.length < 3) return; // TODO: perform validation and show error
 
     log.debug(`Sending login request with name: '${name}'`);
-    sockets.auth.emit(AuthMessageType.LOGIN_REQUEST, JSON.stringify(new LoginRequestMessage(name)));
+    sockets.auth.emit(AuthMessageType.LOGIN_REQUEST, JSON.stringify({ name } as LoginRequestMessage));
   };
 
   return (
