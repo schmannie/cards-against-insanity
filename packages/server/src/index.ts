@@ -6,9 +6,10 @@ import * as s_io from 'socket.io';
 
 import {
   AuthMessageType,
+
   LoginRequestMessage,
   LoginSuccessMessage,
-  LoginFailureMessage
+  LoginFailureMessage,
 } from 'cai-lib';
 
 import {

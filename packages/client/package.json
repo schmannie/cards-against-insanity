@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@roarr/browser-log-writer": "^1.1.1",
-    "cai-lib": "^0.1.3",
+    "cai-lib": "^0.1.16",
     "raw.macro": "^0.4.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
