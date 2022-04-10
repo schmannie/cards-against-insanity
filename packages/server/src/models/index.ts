@@ -1,7 +1,7 @@
 import {
   IPlayer,
   Players,
-} from './player.js';
+} from './player';
 
 export {
   IPlayer,
