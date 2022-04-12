@@ -1,18 +1,18 @@
-import {
+const {
   useState,
   useContext,
   ChangeEventHandler,
-} from 'react';
+} = await import('react');
 
 import {
   AuthMessageType,
   LoginRequestMessage,
 } from '@cai/lib';
 
-import { SocketsContext } from '../contexts/SocketsContext.tsx';
+import { SocketsContext } from '../contexts/SocketsContext.js';
 import './Auth/Auth.css';
 
-import globalLog from '../utils/logging.tsx';
+import globalLog from '../utils/logging.js';
 const log = globalLog.child({ namespace: 'Auth' });
 
 /**

@@ -1,4 +1,4 @@
-import React from 'react';
+const React = await import('react');
 
 import './Sidebar/Sidebar.css';
 

@@ -1,21 +1,22 @@
-import {
+const {
   // useState,
   useContext,
   useEffect,
   useCallback,
-} from 'react';
+} = await import('react');
 
 import {
   AuthMessageType,
-  LoginRequestMessage,
+  LoginSuccessMessage,
+  LoginFailureMessage,
 } from '@cai/lib';
 
-import { SocketsContext } from '../contexts/SocketsContext.tsx';
-import Auth from './Auth.tsx';
-import Sidebar from './Sidebar.tsx';
+import { SocketsContext } from '../contexts/SocketsContext.js';
+import Auth from './Auth.js';
+import Sidebar from './Sidebar.js';
 import './App/App.css';
 
-import globalLog from '../utils/logging.tsx';
+import globalLog from '../utils/logging.js';
 const log = globalLog.child({ namespace: 'App' });
 
 function App() {
