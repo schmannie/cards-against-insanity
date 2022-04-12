@@ -1,12 +1,3 @@
 {
-  "extends": "@tsconfig/create-react-app/tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "src/*": [
-        "src/*"
-      ],
-    },
-    "allowSyntheticDefaultImports": true
-  }
+  "extends": "@tsconfig/create-react-app/tsconfig.json"
 }

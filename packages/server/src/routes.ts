@@ -1,7 +1,7 @@
 import {
   ConnectionHandler,
   authConnectionHandler,
-} from 'src/handlers';
+} from './handlers.js';
 
 type Routes = Record<string, ConnectionHandler>;
 

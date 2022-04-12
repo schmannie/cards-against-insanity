@@ -1,12 +1,12 @@
 {
-  "name": "cards-against-insanity",
+  "name": "@cai/cards-against-insanity",
   "version": "0.1.0",
   "description": "",
-  "author": "Manpreet \"Mannie\" Singh",
-  "license": "MIT",
   "workspaces": [
     "packages/lib",
     "packages/server",
     "packages/client"
-  ]
+  ],
+  "license": "MIT",
+  "author": "Manpreet \"Mannie\" Singh"
 }

@@ -4,7 +4,7 @@ import {
   LoginRequestMessage,
   LoginSuccessMessage,
   LoginFailureMessage,
-} from 'src/networking/auth';
+} from './messaging/auth.js';
 
 export {
   AuthMessageType,

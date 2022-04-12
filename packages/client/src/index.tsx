@@ -2,13 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import raw from 'raw.macro';
 
-import reportWebVitals from 'src/utils/reportWebVitals';
-import { SocketsContext, sockets } from 'src/contexts/SocketsContext';
-import App from 'src/components/App';
-import '/index.css';
+import reportWebVitals from './utils/reportWebVitals.js';
+import { SocketsContext, sockets } from './contexts/SocketsContext.tsx';
+import App from './components/App.tsx';
+import './index.css';
 
-import 'src/utils/initEnv';
-import log from 'src/utils/logging';
+import './utils/initEnv.tsx';
+import log from './utils/logging.tsx';
 
 log.info(raw('./note.txt'));
 

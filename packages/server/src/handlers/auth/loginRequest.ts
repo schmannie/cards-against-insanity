@@ -4,7 +4,7 @@ import {
   LoginRequestMessage,
   LoginSuccessMessage,
   LoginFailureMessage,
-} from 'cai-lib';
+} from '@cai/lib';
 import { Roarr } from 'roarr';
 import { SHA256 } from 'crypto-js';
 

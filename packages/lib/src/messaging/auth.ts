@@ -1,14 +1,10 @@
-enum AuthMessageType {
-  // CREATE_USER: 'auth_create_user',
-  // CREATE_USER_SUCCESS: 'auth_create_user_success',
-  // CREATE_USER_FAILURE: 'auth_create_user_failure',
-
+export enum AuthMessageType {
   LOGIN_REQUEST = 'auth_request_login',
   LOGIN_SUCCESS = 'auth_login_success',
   LOGIN_FAILURE = 'auth_login_failure',
 };
 
-class LoginRequestMessage {
+export class LoginRequestMessage {
 
   name: string;
 
@@ -17,7 +13,7 @@ class LoginRequestMessage {
   }
 }
 
-class LoginSuccessMessage {
+export class LoginSuccessMessage {
 
   id: string;
   name: string;
@@ -30,7 +26,7 @@ class LoginSuccessMessage {
   }
 }
 
-class LoginFailureMessage {
+export class LoginFailureMessage {
 
   reason: string;
 
@@ -38,11 +34,3 @@ class LoginFailureMessage {
     this.reason = reason;
   }
 }
-
-export {
-  AuthMessageType,
-
-  LoginRequestMessage,
-  LoginSuccessMessage,
-  LoginFailureMessage,
-};

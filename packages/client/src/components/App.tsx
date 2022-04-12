@@ -7,16 +7,15 @@ import {
 
 import {
   AuthMessageType,
-  LoginSuccessMessage,
-  LoginFailureMessage,
-} from 'cai-lib';
+  LoginRequestMessage,
+} from '@cai/lib';
 
-import { SocketsContext } from 'src/contexts/SocketsContext';
-import Auth from 'src/components/Auth';
-import Sidebar from 'src/components/Sidebar';
-import './App.css';
+import { SocketsContext } from '../contexts/SocketsContext.tsx';
+import Auth from './Auth.tsx';
+import Sidebar from './Sidebar.tsx';
+import './App/App.css';
 
-import globalLog from 'src/utils/logging';
+import globalLog from '../utils/logging.tsx';
 const log = globalLog.child({ namespace: 'App' });
 
 function App() {

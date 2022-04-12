@@ -1,26 +1,27 @@
 {
-  "name": "cai-lib",
-  "version": "0.1.18",
-  "private": true,
+  "name": "@cai/lib",
+  "version": "0.1.1",
   "description": "",
-  "author": "Manpreet \"Mannie\" Singh",
-  "license": "MIT",
-  "main": "./dist-cjs/cards-against-insanity.js",
-  "browser": "./dist-esm/cards-against-insanity.js",
-  "types": "./dist-types/cards-against-insanity.d.ts",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js"
+    }
+  },
   "scripts": {
-    "clean": "npx rimraf ./dist-esm ./dist-cjs ./dist-types",
-    "build::esm": "npx tsc --module es6 --outDir ./dist-esm",
-    "build::cjs": "npx tsc --module commonjs --outDir ./dist-cjs",
-    "build::types": "npx tsc --declaration --emitDeclarationOnly --outDir ./dist-types",
-    "build::all": "npm run clean && npm run build::esm && npm run build::cjs && npm run build::types",
-    "build": "npm run build::all",
+    "clean": "npx rimraf ./dist",
+    "build::tsc": "npx tsc",
+    "build": "npm run clean && npm run build::tsc",
     "prepare": "npm run build"
   },
   "devDependencies": {
     "@tsconfig/node17": "^1.0.0",
     "jest": "^27.5.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
-  }
+    "typescript": "^4.7.0-dev.20220408"
+  },
+  "license": "MIT",
+  "author": "@schmannie <manpreet.mannie.singh@gmail.com>"
 }

@@ -7,12 +7,12 @@ import {
 import {
   AuthMessageType,
   LoginRequestMessage,
-} from 'cai-lib';
+} from '@cai/lib';
 
-import { SocketsContext } from 'src/contexts/SocketsContext';
-import './Auth.css';
+import { SocketsContext } from '../contexts/SocketsContext.tsx';
+import './Auth/Auth.css';
 
-import globalLog from 'src/utils/logging';
+import globalLog from '../utils/logging.tsx';
 const log = globalLog.child({ namespace: 'Auth' });
 
 /**

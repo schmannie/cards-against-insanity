@@ -1,6 +1,4 @@
-import log from './utils/logging';
-
-import { SHA256 } from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import HTTP from 'http';
 import * as s_io from 'socket.io';
 
@@ -10,11 +8,14 @@ import {
   LoginRequestMessage,
   LoginSuccessMessage,
   LoginFailureMessage,
-} from 'cai-lib';
+} from '@cai/lib';
 
 import {
   Players,
-} from 'models';
+} from './models.js';
+
+import log from './utils/logging.js';
+const { SHA256 } = CryptoJS;
 
 /**
  * 
