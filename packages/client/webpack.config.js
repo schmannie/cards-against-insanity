@@ -2,7 +2,6 @@ import Path from 'path';
 import { fileURLToPath } from 'url';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { runInContext } from 'vm';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
