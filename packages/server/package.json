@@ -11,7 +11,7 @@
     "watch::tsc": "npx cross-env ROARR_LOG=true NODE_ENV=development npx tsc --watch",
     "watch::node": "npx cross-env ROARR_LOG=true NODE_ENV=development npx nodemon ./dist/esm/index.js",
     "start::node": "npx cross-env ROARR_LOG=true node ./dist/esm/index.js",
-    "start::dev": "npm run watch::tsc --silent | npm run watch::node",
+    "start::dev": "npx concurrently \"npm run watch::tsc --silent\" \"npm run watch::node\"",
     "start::prod": "npm run build && npm run start::node",
     "start": "npm run start::dev"
   },
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.0-dev.20220408"

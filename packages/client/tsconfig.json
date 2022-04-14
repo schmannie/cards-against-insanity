@@ -7,27 +7,13 @@
     "module": "esnext",
     "moduleResolution": "nodenext",
     "target": "esnext",
+    "jsx": "react-jsx",
     "allowJs": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
     "strict": true,
-    "sourceMap": true,
-    "outDir": "./dist/esm",
-    "paths": {
-      "@cai/lib": [
-        "../lib/dist/esm"
-      ],
-    }
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "dist"
-  ]
+    "forceConsistentCasingInFileNames": true
+  }
 }

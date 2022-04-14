@@ -1,12 +1,14 @@
 {
   "name": "@cai/client",
   "version": "0.1.0",
-  "description": "",
+  "description": "Cards Against Insanity is a card game against insanity is a card game against insanity is a card game",
   "private": true,
   "type": "module",
   "scripts": {
-    "clean": "npx rimraf ./dist",
-    "build": "npm run clean && npx cross-env NODE_ENV=development tsc"
+    "build::prod": "npx cross-env npx webpack",
+    "build::dev": "npx cross-env NODE_ENV=development npx webpack",
+    "build": "npm run build::dev",
+    "start": "npx cross-env NODE_ENV=development npx webpack serve"
   },
   "dependencies": {
     "@cai/lib": "^0.1.1",
@@ -17,11 +19,20 @@
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.1",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "../../../DefinitelyTyped/types/react",
+    "@types/react-dom": "../../../DefinitelyTyped/types/react-dom",
+    "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.7.0-dev.20220408"
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.7.0-dev.20220408",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
   },
   "license": "MIT",
   "author": "@schmannie <manpreet.mannie.singh@gmail.com>"

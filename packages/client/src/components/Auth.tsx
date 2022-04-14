@@ -1,18 +1,21 @@
-const {
+import {
   useState,
   useContext,
-  ChangeEventHandler,
-} = await import('react');
+  
+  EventHandler,
+  ChangeEvent,
+  FormEvent,
+} from 'react';
 
 import {
   AuthMessageType,
   LoginRequestMessage,
 } from '@cai/lib';
 
-import { SocketsContext } from '../contexts/SocketsContext.js';
+import { SocketsContext } from '../contexts/SocketsContext';
 import './Auth/Auth.css';
 
-import globalLog from '../utils/logging.js';
+import globalLog from '../utils/logging';
 const log = globalLog.child({ namespace: 'Auth' });
 
 /**
@@ -26,11 +29,11 @@ const Auth = () => {
   const sockets = useContext(SocketsContext);
   const [name, setName] = useState('');
 
-  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleNameChange: EventHandler<ChangeEvent<HTMLInputElement>> = (event) => {
     setName(event.target.value);
   };
 
-  const handleNameSubmit: ChangeEventHandler<HTMLFormElement> = (event) => {
+  const handleNameSubmit: EventHandler<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
 
     if (name.length < 3) return; // TODO: perform validation and show error

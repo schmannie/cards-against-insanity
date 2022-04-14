@@ -97,7 +97,7 @@ const server_start_time = Date.now();
 
 const httpServer = HTTP.createServer(handleHTTPRequest); // TODO: enable HTTPS
 
-const accepted_origin = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000' : ''; // TODO: add production client origin
+const accepted_origin = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''; // TODO: add production client origin
 const io = new s_io.Server(httpServer, {
   cors: {
     origin: accepted_origin,
