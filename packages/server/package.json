@@ -19,11 +19,14 @@
     "@cai/lib": "^0.1.1",
     "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
+    "lodash": "^4.17.21",
+    "lowdb": "^3.0.0",
     "roarr": "^7.11.0",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
+    "@types/lodash": "^4.14.181",
     "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
