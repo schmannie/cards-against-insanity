@@ -5,17 +5,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build::prod": "npx cross-env npx webpack",
+    "build::prod": "npx webpack",
     "build::dev": "npx cross-env NODE_ENV=development npx webpack",
     "build": "npm run build::dev",
-    "start": "npx cross-env NODE_ENV=development npx webpack serve"
+    "start::dev": "npx cross-env NODE_ENV=development npx webpack serve",
+    "start": "npm run start::dev"
   },
   "dependencies": {
     "@cai/lib": "^0.1.1",
-    "@roarr/browser-log-writer": "^1.1.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "roarr": "^7.11.0",
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
@@ -25,6 +24,9 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
+    "postcss": "^8.4.12",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.4.3",
     "rimraf": "^3.0.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.8",

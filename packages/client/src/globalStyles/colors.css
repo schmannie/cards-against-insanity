@@ -1,0 +1,8 @@
+:root {
+  --primary-color: rgb(185, 235, 255);
+  --accent-color: rgb(255, 236, 100);
+  --background-color: rgb(12, 0, 46);
+  --error-color: rgb(255, 74, 83);
+
+  --space-color: rgb(7, 0, 13);
+}

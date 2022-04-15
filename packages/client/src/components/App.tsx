@@ -11,9 +11,6 @@ import {
   LoginFailureMessage,
 } from '@cai/lib';
 
-import globalLog from '../utils/logging';
-
-const log = globalLog.child({ namespace: 'App' });
 import { SocketsContext } from '../contexts/SocketsContext';
 import Auth from './Auth';
 import Sidebar from './Sidebar';
@@ -25,24 +22,24 @@ function App() {
   const isLoggedIn = false;
 
   const handleAuthConnection = useCallback(() => {
-    log.debug('Successfully connected to auth socket');
+    console.debug('Successfully connected to auth socket');
   }, []);
 
   const handleLoginSuccess = useCallback((message: string) => {
     try {
       const payload = JSON.parse(message) as LoginSuccessMessage;
-      log.debug(`Successfully logged in as: '${payload.name}'`);
+      console.debug(`Successfully logged in as: '${payload.name}'`);
     } catch (e) {
-      log.error(`Login request failed: ${(e as Error).message}`);
+      console.error(`Login request failed: ${(e as Error).message}`);
     }
   }, []);
 
   const handleLoginFailure = useCallback((message: string) => {
     try {
       const payload = JSON.parse(message) as LoginFailureMessage;
-      log.error(`Login request failed: ${payload.reason}`);
+      console.error(`Login request failed: ${payload.reason}`);
     } catch (e) {
-      log.error(`Failed to parse failing login response: ${(e as Error).message}`);
+      console.error(`Failed to parse failing login response: ${(e as Error).message}`);
     }
   }, []);
 
@@ -54,7 +51,7 @@ function App() {
 
     if (!sockets.auth.connected) {
 
-      log.debug('Connecting to auth socket');
+      console.debug('Connecting to auth socket');
       sockets.auth.connect(); // TODO: send auth payload if present
     }
 
@@ -67,14 +64,14 @@ function App() {
       if (sockets.auth.connected) {
 
         sockets.auth.disconnect();
-        log.debug('Gracefully disconnected from auth socket on \'App\' unmount');
+        console.debug('Gracefully disconnected from auth socket on \'App\' unmount');
       }
     }
   }, []);
 
 
   return (
-    <section id="content">
+    <div id="content">
 
       {/* TODO: Add background graphics */}
 
@@ -87,7 +84,7 @@ function App() {
         <Auth />
       )}
 
-    </section>
+    </div>
   );
 }
 

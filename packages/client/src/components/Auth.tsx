@@ -15,9 +15,6 @@ import {
 import { SocketsContext } from '../contexts/SocketsContext';
 import './Auth/Auth.css';
 
-import globalLog from '../utils/logging';
-const log = globalLog.child({ namespace: 'Auth' });
-
 /**
  * Auth component
  * 
@@ -38,7 +35,7 @@ const Auth = () => {
 
     if (name.length < 3) return; // TODO: perform validation and show error
 
-    log.debug(`Sending login request with name: '${name}'`);
+    console.debug(`Sending login request with name: '${name}'`);
     sockets.auth.emit(AuthMessageType.LOGIN_REQUEST, JSON.stringify({ name } as LoginRequestMessage));
   };
 

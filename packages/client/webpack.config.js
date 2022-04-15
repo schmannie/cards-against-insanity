@@ -50,6 +50,19 @@ export default {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
+          { loader: 'postcss-loader', options: {
+            postcssOptions: {
+              plugins: [
+                [
+                  'postcss-preset-env',
+                  {
+                    browsers: 'last 2 versions',
+                    stage: 0,
+                  },
+                ],
+              ],
+            }
+          }},
         ],
         include: [ srcDir ],
         exclude: [ nodeModulesDir ],
