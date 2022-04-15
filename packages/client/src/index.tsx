@@ -1,13 +1,14 @@
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import reportWebVitals from './utils/reportWebVitals';
+import note from './note.txt';
+
 import { SocketsContext, sockets } from './contexts/SocketsContext';
 import App from './components/App';
 import './globalStyles/index.css';
 
-// log.info(raw('./note.txt')); // TODO: re-enable pretty ASCII art
+console.info(note);
 
 const root = createRoot((document.getElementById('root'))!)
 

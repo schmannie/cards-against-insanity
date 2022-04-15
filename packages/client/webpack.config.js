@@ -40,13 +40,13 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
+        test: /\.(j|t)sx?$/i,
         loader: 'ts-loader',
         include: [ srcDir ],
         exclude: [ nodeModulesDir ],
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
@@ -66,6 +66,12 @@ export default {
         ],
         include: [ srcDir ],
         exclude: [ nodeModulesDir ],
+      },
+      {
+        test: /\.txt$/i,
+        type: 'asset/source',
+        include: [srcDir],
+        exclude: [nodeModulesDir],
       },
     ],
   },
