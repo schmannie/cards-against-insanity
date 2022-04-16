@@ -1,0 +1,125 @@
+
++ Server
+
+  > register
+    = create user with:
+      - id
+      - name
+    < send id as token
+
+
+  > room creation (has token)
+    - validate room options
+    = create room with:
+      - id
+      - name
+      - password
+      - game options
+        - card decks available for use
+        - max players
+        - turn time
+          - for players to play cards
+          - for czar to judge
+        - round turn order
+          - roundrobin
+          - roundrobin reversed
+          - random
+          - king of the hill (high point czars first)
+          - king of the hill reversed
+        - auto-kick after n rounds
+        - score limit
+      - player list
+      - ban list
+      - mute list
+      - chat namespace socket
+    < send host room creation success response
+    ! ensure host arrives in 1 minute or destroy room
+
+
+  > room update (has token)
+    - ensure token is host
+    - validate room options
+    = update room options
+    < broadcast changes to connected players
+
+
+  > room host update (has token)
+    - ensure token is host
+    = update host
+    < broadcast changes to connected players
+  
+
+  > room kick request (has token)
+    - ensure token is host
+    - ensure booted token isn't host
+    = kick specified user
+    < broadcast changes to connected players
+
+
+  > room mute request (has token)
+    - ensure token is host
+    = mute specified user
+    < broadcast changes to connected players
+
+
+  > room ban request (has token)
+    - ensure token is host
+    - ensure banned token isn't host
+    = ban specified user
+    < broadcast changes to connected players
+
+
+  > room join ('connection', has token)
+    - validate password, if any
+    - ensure room isn't full
+    - ensure game hasn't started, until spectating is added
+    = add player ID to socket ID
+    = add player to room list
+    < send player room join success response
+    < broadcast changes to connected players
+
+
+  > game start (has token)
+    - ensure socket.data is host
+    - ensure minimum players >4
+    = load deck from room options
+    = create game instance
+      - assign initial scores to all players
+    < broadcast game start
+    = loop (while any players score<score limit):
+      = loop (while turn count<room player count):
+        = determine turn order for round
+        = loop (per turn/one of each play and judge, in order):
+          = get next czar
+          = pick prompt (black) card
+          = pick (white) cards to distribute to players
+          < broadcast black card and czar
+          < send white cards to indiv. players
+          < broadcast play length
+          = loop (while timer<time now plus play length):
+            > played card(s) (has token)
+              = assign played card(s) to player token
+            - end if all received early, otherwise currently selected
+            - ! if NO cards played, end game?
+          = add to AFK count on player skip (per player)
+          < broadcast played card(s) anonymously
+          < broadcast judgement length
+          = loop (while timer<time now plus judgement length):
+            > selected card(s) (has token)
+              = award points to winning hand's player
+            - end if judgement received early, otherwise currently selected
+            - ! what to do if no judgement?
+          < broadcast turn winner and point changes
+      > force end game request (has token)
+        - ensure token is host
+        = break game loop
+        < broadcast forced game end
+    - winner winner chicken dinner
+    < broadcast winner player with end of game
+
+
+  > room leave ('disconnection')
+    - if socket.data is host (player token) is host
+      = pick new host (next to join room after host)
+    = remove player from room
+    < broadcast change to connected players

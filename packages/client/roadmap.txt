@@ -1,0 +1,106 @@
+
++ Client
+
+  - Auth component
+
+    - create new user
+      = username (that's it)
+      < send registration request
+      > get success
+        + set token
+        - transition to Lobby
+      > get failure
+        - internal error
+        - possible attack
+
+
+  - Lobby component
+
+    - create new Room
+      = configure
+      < send new room request
+      > get success
+        - auto-join as host
+      > get failure
+        - internal error
+
+    - join public Room
+      < poll public room list
+      > get success
+        = set filters/search to narrow selection
+        = enter password (if any)
+        < send room join request
+        > get success
+          - transition to Room
+        > get failure
+          - room full
+          - bad password
+          - internal error
+      > get failure
+        - internal error
+
+
+  - Room component
+
+    > get room
+      = load room information
+      - NON-HOST actions:
+        < leave room
+        < send chat messages
+          = send message from chat component
+          + re-add/confirm or rebroadcast from server
+        > receive chat broadcasts
+          = add message to chat component
+        > receive room options update broadcasts
+          = update local room options
+        > receive room host update broadcasts
+          = update local room host player ID
+        > receive mute broadcasts
+          = show player muted in UI
+        > receive kick/ban broadcasts
+          = remove player from room player list
+        > receive game start (until score limit or force end)
+          > receive forced game end
+          > receive prompt (black) card and czar
+            = set prompt and czar
+          > receive play (white) cards
+            = set hand
+          > receive play turn length
+            - if czar, block card input for play part of turn
+            - if not czar, select card(s) to play (all send token)
+              = select cards from hand
+              < broadcast selected cards to play on submit
+              < broadcast selected cards, if any, on end of play
+            - wait until end of play turn
+              = create and show timer
+          > receive cards played this play turn
+            = show played cards on board
+          > receive judgement length
+            - if czar, allow judgement submission (all send token)
+              = select cards from board
+              < broadcast selection on submit
+              < broadcast selection, if any, on end of judgement
+            - wait until end of judgement turn
+              = create and show timer
+          > receive turn and new score broadcast
+            = show turn winner toast
+            = update scoreboard
+          > receive game winner and game end broadcast
+            = show game winner toast
+            = end game
+      - HOST actions (all send token):
+        < update room
+          - send new room options
+        < give host priviledges
+          - send new host request with target ID
+        < kick player
+          - send kick request with target ID
+        < mute player
+          - send mute request with target ID
+        < block player
+          - send block request with target ID
+        < start game
+          - send game initialization request
+        < force game end
+          - send game end request
+        - plus all NON-HOST actions
