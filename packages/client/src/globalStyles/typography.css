@@ -1,0 +1,26 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: var(--primary-color);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  letter-spacing: 0.01rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: var(--primary-color) wavy underline;
+}

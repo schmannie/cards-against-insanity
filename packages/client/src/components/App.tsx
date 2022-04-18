@@ -1,89 +1,63 @@
 import {
-  // useState,
-  useContext,
+  useState,
   useEffect,
+  useContext,
   useCallback,
 } from 'react';
 
-import {
-  AuthMessageType,
-  LoginSuccessMessage,
-  LoginFailureMessage,
-} from '@cai/lib';
+import { log } from '../utils/logging';
 
-import { SocketsContext } from '../contexts/SocketsContext';
-import Auth from './Auth';
-import Sidebar from './Sidebar';
+import { SocketContext } from '../contexts/SocketContext';
 import './App/App.css';
 
 function App() {
 
-  const sockets = useContext(SocketsContext);
-  const isLoggedIn = false;
+  const socket  = useContext(SocketContext);
+  const [isSocketOpen, setSocketOpen] = useState(false);
 
-  const handleAuthConnection = useCallback(() => {
-    console.debug('Successfully connected to auth socket');
-  }, []);
+  const handleSocketConnection = useCallback(() => {
+    setSocketOpen(socket.connected);
+    log.debug('Socket connected');
+  }, [socket]);
 
-  const handleLoginSuccess = useCallback((message: string) => {
-    try {
-      const payload = JSON.parse(message) as LoginSuccessMessage;
-      console.debug(`Successfully logged in as: '${payload.name}'`);
-    } catch (e) {
-      console.error(`Login request failed: ${(e as Error).message}`);
-    }
-  }, []);
+  const handleSocketDisconnection = useCallback((reason: string) => {
+    setSocketOpen(socket.connected);
+    log.debug(`Socket disconnected: ${reason}`);
+  }, [socket])
 
-  const handleLoginFailure = useCallback((message: string) => {
-    try {
-      const payload = JSON.parse(message) as LoginFailureMessage;
-      console.error(`Login request failed: ${payload.reason}`);
-    } catch (e) {
-      console.error(`Failed to parse failing login response: ${(e as Error).message}`);
-    }
-  }, []);
+  const handleSocketError = useCallback((error: Error) => {
+    setSocketOpen(socket.connected);
+    log.error(error);
+  }, [socket]);
 
   useEffect(() => {
 
-    sockets.auth.on('connect', handleAuthConnection);
-    sockets.auth.on(AuthMessageType.LOGIN_SUCCESS, handleLoginSuccess);
-    sockets.auth.on(AuthMessageType.LOGIN_FAILURE, handleLoginFailure);
+    socket.on('connect', handleSocketConnection);
+    socket.on('connect_error', handleSocketError);
+    socket.on('disconnect', handleSocketDisconnection);
 
-    if (!sockets.auth.connected) {
-
-      console.debug('Connecting to auth socket');
-      sockets.auth.connect(); // TODO: send auth payload if present
+    if (socket.disconnected) {
+      socket.connect();
     }
 
     return () => {
 
-      sockets.auth.off('connect', handleAuthConnection);
-      sockets.auth.off(AuthMessageType.LOGIN_SUCCESS, handleLoginSuccess);
-      sockets.auth.off(AuthMessageType.LOGIN_FAILURE, handleLoginFailure);
+      socket.off('connect', handleSocketConnection);
+      socket.off('connect_error', handleSocketError);
+      socket.off('disconnect', handleSocketDisconnection);
 
-      if (sockets.auth.connected) {
-
-        sockets.auth.disconnect();
-        console.debug('Gracefully disconnected from auth socket on \'App\' unmount');
+      if (socket.connected) {
+        socket.disconnect();
       }
     }
-  }, []);
-
+  }, [])
 
   return (
     <div id="content">
-
-      {/* TODO: Add background graphics */}
-
-      {isLoggedIn ? (
-        <Sidebar>
-          {/* UserProfile */}
-          {/* FriendsList */}
-        </Sidebar>
-      ) : (
-        <Auth />
-      )}
-
+      <h1>Socket status: {isSocketOpen ? 'OPEN' : 'CLOSED'}</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. <a>Id voluptates deserunt pariatur corrupti fugiat nemo vel</a>, ad atque beatae. Suscipit possimus eligendi laboriosam sunt unde voluptatibus optio, magnam ut expedita!
+      </p>
     </div>
   );
 }

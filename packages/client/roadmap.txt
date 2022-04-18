@@ -1,7 +1,7 @@
 
 + Client
 
-  - Auth component
+  + Auth component
 
     - create new user
       = username (that's it)
@@ -14,7 +14,7 @@
         - possible attack
 
 
-  - Lobby component
+  + Lobby component
 
     - create new Room
       = configure
@@ -40,7 +40,7 @@
         - internal error
 
 
-  - Room component
+  + Room component
 
     > get room
       = load room information

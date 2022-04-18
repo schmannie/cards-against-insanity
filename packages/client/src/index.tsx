@@ -1,10 +1,13 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import reportWebVitals from './utils/reportWebVitals';
 import note from './note.txt';
 
-import { SocketsContext, sockets } from './contexts/SocketsContext';
+import {
+  socket,
+  SocketContext
+} from './contexts/SocketContext';
 import App from './components/App';
 import './globalStyles/index.css';
 
@@ -13,11 +16,11 @@ console.info(note);
 const root = createRoot((document.getElementById('root'))!)
 
 root.render(
-  <React.StrictMode>
-    <SocketsContext.Provider value={sockets}>
+  <StrictMode>
+    <SocketContext.Provider value={socket}>
       <App />
-    </SocketsContext.Provider>
-  </React.StrictMode>
+    </SocketContext.Provider>
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

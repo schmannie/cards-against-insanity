@@ -1,7 +1,7 @@
 {
   "name": "@cai/client",
   "version": "0.1.0",
-  "description": "Cards Against Insanity is a card game against insanity is a card game against insanity is a card game",
+  "description": "",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@cai/lib": "^0.1.1",
+    "consola": "^2.15.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "socket.io-client": "^4.4.1"
