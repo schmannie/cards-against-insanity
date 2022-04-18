@@ -1,7 +1,7 @@
 {
   "name": "@cai/cards-against-insanity",
   "version": "0.1.0",
-  "description": "",
+  "description": "Cards Against Insanity is a card game against insanity is a card game against insanity is a card game",
   "workspaces": [
     "packages/lib",
     "packages/server",
