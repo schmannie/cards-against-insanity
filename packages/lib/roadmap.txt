@@ -1,0 +1,13 @@
+
++ Lib
+
+What's the strategy?
+----------------------------------------------------------------------
+
+Try to eliminate duplicate structures and types on both `client` and
+`server` by building them in this `lib` package.
+
+Minimize adding code to lib that only runs on one-side. Ideally,
+everything in `lib` should be used on both `client` and `server`.
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

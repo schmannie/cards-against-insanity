@@ -1,36 +1,31 @@
 import {
-  RegistrationRequest,
-  IRegistrationRequest,
   REGISTRATION_REQUEST,
-
-  RegSuccessResponse,
-  IRegSuccessResponse,
-  REGISTRATION_SUCCESS_RESPONSE,
-
-  RegFailureResponse,
-  IRegFailureResponse,
-  REGISTRATION_FAILURE_RESPONSE,
-} from  './message.js';
+  IRegistrationRequest,
+  RegistrationRequest,
+} from "./message/request/registration.js";
 
 import {
-  Player,
-  AuthenticatedPlayer,
-} from './player.js';
+  REGISTRATION_SUCCESS_RESPONSE,
+  IRegSuccessResponse,
+  RegSuccessResponse,
+} from "./message/response/regSuccess.js";
+
+import {
+  REGISTRATION_FAILURE_RESPONSE,
+  IRegFailureResponse,
+  RegFailureResponse,
+} from "./message/response/regFailure.js";
 
 export {
   RegistrationRequest,
   IRegistrationRequest,
   REGISTRATION_REQUEST,
-
+  
   RegSuccessResponse,
   IRegSuccessResponse,
   REGISTRATION_SUCCESS_RESPONSE,
-
+  
   RegFailureResponse,
   IRegFailureResponse,
   REGISTRATION_FAILURE_RESPONSE,
-
-  Player,
-  AuthenticatedPlayer,
 };
-
