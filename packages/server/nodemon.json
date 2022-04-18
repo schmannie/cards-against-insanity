@@ -1,7 +1,14 @@
 {
-  "watch": [ "src" ],
+  "spawn": true,
+  "inspect": true,
+  "no-stdin": true,
+  "verbose": true,
+  "watch": [
+    "dist/**/*.js"
+  ],
   "ignore": [
     "db",
-    "dist"
+    "src",
+    "**/*.txt"
   ]
 }

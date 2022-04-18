@@ -2,32 +2,27 @@ import Path from 'path'
 import lodash from 'lodash';
 import {
   Low,
+  Memory,
   JSONFile,
 } from 'lowdb'
-
-import {
-  Players,
-} from '../models.js';
 
 class LowDash<T> extends Low<T> {
   chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data');
 }
 
 const __dirname = process.cwd();
+const dbDir = Path.join(__dirname, 'db');
 
 async function initializeDB() {
-  const dbDir = Path.join(__dirname, 'db');
 
-  const playersFile = Path.join(dbDir, 'players.json');
-  const playersAdapter = new JSONFile<Players>(playersFile);
-  const playersDB = new LowDash(playersAdapter);
+  // const playersFile = Path.join(dbDir, 'players.json');
+  // const playersAdapter = new JSONFile<Players>(playersFile);
+  // const playersDB = new LowDash(playersAdapter);
 
-  await playersDB.read();
-  playersDB.data ||= {};
+  // await playersDB.read();
+  // playersDB.data ||= {};
 
-  return {
-    playersDB,
-  };
+  return {};
 }
 
-export const { playersDB } = await initializeDB();
+export const {} = await initializeDB();

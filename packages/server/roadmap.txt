@@ -1,6 +1,18 @@
 
 + Server
 
+  = setup http (+ https)
+  = setup socket.io (+ wss)
+  = load decks from database
+    - build decks
+      - set metadata
+      - add white cards
+        - set text
+      - add black cards
+        - set text
+        - set pick amount
+
+
   > register
     = create user with:
       - id
